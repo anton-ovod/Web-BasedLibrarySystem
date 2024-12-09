@@ -1,17 +1,22 @@
 # Software Requirements Specification (SRS)
 
-## Library Management System
+## Web-based Library System
 
 ### 1. Introduction
 #### 1.1 Purpose
-The purpose of this document is to define the software requirements for the Library Management System. 
-The system aims to streamline the management of library resources, facilitate member interactions, and support administrative tasks efficiently.
+The purpose of this document is to outline the software requirements 
+for a web-based Library System. 
+The system is designed to enable library members to search for and reserve books online, 
+while borrowing and returning will be handled in person. 
+Librarians will use the system to manage the library's book catalog and facilitate member interactions, 
+and administrators will oversee user accounts and system configurations.
+
 
 #### 1.2 Scope
-The Library Management System is intended to:
-- Allow library members to search, and reserve books.
-- Enable librarians to manage library inventory and member transactions.
-- Provide administrators with tools for user and system management.
+The Library System is a web-based application designed to modernize library operations and improve user experience. Its primary functionalities include:
+- **For Members**: Searching for books, reserving available titles online, and accessing personal borrowing history. Actual borrowing and returning of books are conducted at the library.
+- **For Librarians**: Managing the book catalog, tracking borrowing and returning records, and generating reports to streamline daily operations.
+- **For Administrators**: Overseeing user account management, system settings, and generating advanced analytics reports to optimize library workflows.
 
 #### 1.3 Definitions, Acronyms, and Abbreviations
 - **LMS**: Library Management System
