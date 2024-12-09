@@ -1,152 +1,126 @@
-# Software Requirements Specification
+# Специфікація програмних вимог
 
-## Web-based Library System
+## Веб-орієнтована бібліотечна система
 
-### 1. Introduction
-#### 1.1 Purpose
-The purpose of this document is to outline the software requirements 
-for a web-based Library System. 
-The system is designed to enable library members to search for and reserve books online, 
-while borrowing and returning will be handled in person. 
-Librarians will use the system to manage the library's book catalog 
-and facilitate member interactions.
+### 1. Вступ
+#### 1.1 Мета
+Метою цього документа є опис програмних вимог до веб-орієнтованої бібліотечної системи. Система створена для того, щоб дозволити членам бібліотеки шукати та резервувати книги онлайн, тоді як процеси позичання та повернення книг будуть здійснюватися особисто. Бібліотекарі використовуватимуть систему для управління каталогом книг та взаємодії з читачами.
 
-#### 1.2 Definitions, Acronyms, and Abbreviations
-- **WLS**: Web-based Library System
-- **Reader**: A user who can search, reserve, borrow, and prolong books, report issues with borrowed books, and request to donate books.
-- **Librarian**: A user responsible for managing library inventory, member interactions, and resolving account issues.
+#### 1.2 Визначення, абревіатури та скорочення
+- **WLS**: Веб-орієнтована бібліотечна система
+- **Читач**: Користувач, який може шукати, резервувати, позичати, продовжувати терміни позики книг, повідомляти про проблеми з позиченими книгами та подавати запити на дарування книг.
+- **Бібліотекар**: Користувач, відповідальний за управління бібліотечним фондом, взаємодію з членами бібліотеки та вирішення проблем з обліковими записами.
 
-#### 1.3 Scope
-The Library System is a web-based application designed to modernize library operations and improve user experience. 
-Its primary functionalities include:
+#### 1.3 Обсяг
+Бібліотечна система — це веб-додаток, розроблений для модернізації роботи бібліотек та покращення користувацького досвіду. Основні функції включають:
 
-- **For Readers**: Searching for books, reserving available titles online, 
-    prolonging borrowed books a limited number of times, 
-    reporting lost or destroyed books and receiving guidance from librarians, 
-    requesting to donate books to the library, 
-    and accessing personal borrowing history. 
-    Actual borrowing and returning of books are conducted at the library.
+- **Для читачів**: Пошук книг, резервування доступних екземплярів онлайн, продовження термінів позики обмежену кількість разів, повідомлення про втрату або пошкодження книг із подальшою допомогою від бібліотекаря, подання запитів на дарування книг та доступ до особистої історії позик. Фактичне позичання та повернення книг відбувається в бібліотеці.
 
-- **For Librarians**: Managing the book catalog, 
-    tracking borrowing and returning records, 
-    generating reports to streamline daily operations, 
-    approving or rejecting book donation requests, 
-    responding to reports of lost or destroyed books, 
-    and resolving member account issues.
+- **Для бібліотекарів**: Управління каталогом книг, відстеження записів позик і повернень, створення звітів для оптимізації щоденних операцій, затвердження чи відхилення запитів на дарування книг, реагування на повідомлення про втрату чи пошкодження книг та вирішення проблем з обліковими записами членів бібліотеки.
 
-### 2. Overall Description
+### 2. Загальний опис
 
-#### 2.1 Product Perspective
-The WLS is a standalone web-based system 
-aimed at improving the efficiency of library operations. 
-It will replace traditional manual processes 
-with a more automated and interactive system. 
+#### 2.1 Перспектива продукту
+WLS — це автономна веб-система, спрямована на підвищення ефективності роботи бібліотек. Вона замінює традиційні ручні процеси на більш автоматизовану та інтерактивну систему.
 
-#### 2.2 Product Features
-- **Book Search**: Readers can search for books by title, author, genre, or ISBN.
+#### 2.2 Функції продукту
+- **Пошук книг**: Читачі можуть шукати книги за назвою, автором, жанром або ISBN.
 
-- **Online Reservations**: Readers can reserve books available in the library.
+- **Онлайн-резервування**: Читачі можуть резервувати доступні книги.
 
-- **Borrowing History**: Readers can view their borrowing history.
+- **Історія позик**: Читачі можуть переглядати свою історію позик.
 
-- **Prolonging Borrowed Books**: Readers can extend their borrowing period within set limits.
+- **Продовження термінів позики**: Читачі можуть продовжувати терміни позики в межах встановлених обмежень.
 
-- **Report Issues**: Readers can report lost or destroyed borrowed books and receive guidance from librarians.
+- **Повідомлення про проблеми**: Читачі можуть повідомляти про втрату або пошкодження позичених книг і отримувати допомогу від бібліотекаря.
 
-- **Book Donations**: Readers can request to donate books to the library.
+- **Дарування книг**: Читачі можуть подавати запити на дарування книг бібліотеці.
 
-- **Catalog Managment**: Librarians can add, update and remove books from the library catalog.
+- **Управління каталогом**: Бібліотекарі можуть додавати, оновлювати та видаляти книги з каталогу бібліотеки.
 
-- **Borrowing and Returning Management**: Librarians can track records of borrowed and returned books.
+- **Управління позиками і поверненнями**: Бібліотекарі можуть відстежувати записи позик і повернень.
 
-- **Reports**: Librarians can generate reports such as overdue books, borrowing trends, etc.
+- **Звіти**: Бібліотекарі можуть створювати звіти, такі як прострочені книги, тенденції позик тощо.
 
-#### 2.3 User Characteristics
+#### 2.3 Характеристики користувачів
 
-- **Readers**:  Typically familiar with browsing and searching for information online. 
-  They require minimal training and should be able to use features 
-  like book search, reservations, and reporting lost or damaged books intuitively.
-  Additionally, they may need occasional guidance from librarians 
-  for more complex interactions, such as resolving issues with borrowed books.
+- **Читачі**: Як правило, знайомі з пошуком інформації в інтернеті. Потребують мінімального навчання та повинні інтуїтивно використовувати функції, такі як пошук книг, резервування та повідомлення про втрату чи пошкодження книг. У складніших випадках, таких як вирішення проблем із позиками, можуть знадобитися консультації бібліотекаря.
 
-- **Librarians**: Proficient in library management processes and basic computer operations. 
-  They will require training to manage advanced system features like generating reports, 
-  catalog updates, and responding to user-reported issues such as lost or damaged books.
+- **Бібліотекарі**: Добре розбираються в процесах управління бібліотекою та базових операціях із комп’ютером. Потребують навчання для використання розширених функцій системи, таких як створення звітів, оновлення каталогу та реагування на повідомлення користувачів про втрату чи пошкодження книг.
 
-#### 2.4 Constraints
-- The system must comply with data protection regulations (e.g., GDPR).
-- Compatible with commonly used web browsers (e.g., Chrome, Firefox, Safari).
-- Limited to existing library infrastructure for hardware integration (e.g., barcode scanners).
-- Maximum response time for critical operations (e.g., search and reservations) should not exceed 2 seconds.
+#### 2.4 Обмеження
+- Система повинна відповідати нормам захисту даних (наприклад, GDPR).
+- Сумісність із популярними веб-браузерами (наприклад, Chrome, Firefox, Safari).
+- Обмежена інтеграція з існуючою інфраструктурою бібліотеки (наприклад, сканери штрихкодів).
+- Максимальний час відповіді для критичних операцій (наприклад, пошук і резервування) не повинен перевищувати 2 секунд.
 
-#### 2.5 Assumptions and Dependencies
-- Readers and Librarians have access to a stable internet connection.
-- Hardware will be provided by the library.
-- The library database is available and operational for integration.
+#### 2.5 Припущення та залежності
+- Читачі та бібліотекарі мають доступ до стабільного інтернет-з’єднання.
+- Обладнання буде надане бібліотекою.
+- База даних бібліотеки доступна й функціонує для інтеграції.
 
-### 3. Functional Requirements
-#### 3.1 Reader Features
-- Ability to search for books by title, author, genre, or ISBN.
+### 3. Функціональні вимоги
+#### 3.1 Функції для читачів
+- Можливість пошуку книг за назвою, автором, жанром або ISBN.
 
-- Reserve a book if it is available.
+- Резервування книг, якщо вони доступні.
 
-- View personal borrowing history.
+- Перегляд особистої історії позик.
 
-- Prolong the borrowing period for a book, subject to library policy.
+- Продовження терміну позики книги відповідно до політики бібліотеки.
 
-- Report lost or damaged books.
+- Повідомлення про втрату чи пошкодження книг.
 
-- Submit requests to donate books to the library.
+- Подання запитів на дарування книг бібліотеці.
 
-#### 3.2 Librarian Features
-- Add, update, and remove books from the catalog.
+#### 3.2 Функції для бібліотекарів
+- Додавання, оновлення та видалення книг із каталогу.
 
-- Manage borrowing and returning records.
+- Управління записами позик і повернень.
 
-- Approve or reject book reservation requests.
+- Затвердження чи відхилення запитів на резервування книг.
 
-- Respond to lost or damaged book reports.
+- Реагування на повідомлення про втрату чи пошкодження книг.
 
-- Approve or reject book donation requests.
+- Затвердження чи відхилення запитів на дарування книг.
 
-- Generate reports on library statistics, such as overdue books and popular titles.
+- Генерація звітів щодо статистики бібліотеки, наприклад, прострочені книги та популярні назви.
 
-### 4. Non-Functional Requirements
-#### 4.1 Performance
-- The system should handle up to 500 simultaneous user sessions without performance degradation.
+### 4. Нефункціональні вимоги
+#### 4.1 Продуктивність
+- Система повинна підтримувати до 500 одночасних сесій користувачів без погіршення продуктивності.
 
-- Search results should load within 2 seconds for up to 1 million book records.
+- Результати пошуку повинні завантажуватися протягом 2 секунд для бази даних із до 1 мільйона записів книг.
 
-#### 4.2 Usability
-- The interface must be intuitive and user-friendly for both Readers and Librarians.
+#### 4.2 Зручність
+- Інтерфейс повинен бути інтуїтивно зрозумілим і зручним для використання як для читачів, так і для бібліотекарів.
 
-- Provide tooltips and help documentation for all features.
+- Надання підказок та документації для всіх функцій.
 
-#### 4.3 Security
-- Implement role-based access control (RBAC) to separate Reader and Librarian functionalities.
+#### 4.3 Безпека
+- Впровадження контролю доступу на основі ролей (RBAC) для розмежування функціональності читачів і бібліотекарів.
 
-- All sensitive data must be encrypted during storage and transmission.
+- Усі конфіденційні дані повинні бути зашифровані під час зберігання та передачі.
 
-- Include CAPTCHA for user registration to prevent automated sign-ups.
+- Використання CAPTCHA під час реєстрації користувачів для запобігання автоматизованим реєстраціям.
 
-#### 4.4 Availability
-- Ensure 99.9% system uptime, excluding scheduled maintanace.
+#### 4.4 Доступність
+- Забезпечення доступності системи на рівні 99.9%, за винятком планового обслуговування.
 
-- Data backups must occur daily, with the ability to restore 2 hours.
+- Щоденне резервне копіювання даних із можливістю відновлення протягом 2 годин.
 
-### 5. System Models
-#### 5.1 Use Case Diagram
-_(To be added: A UML diagram showing interactions among members, librarians.)_
+### 5. Моделі системи
+#### 5.1 Діаграма випадків використання
+_(Буде додано: UML-діаграма, що показує взаємодії між читачами та бібліотекарями.)_
 
-#### 5.2 Data Flow Diagram
-_(To be added: A visual representation of data flows within the system.)_
+#### 5.2 Діаграма потоків даних
+_(Буде додано: візуальне представлення потоків даних у системі.)_
 
-
-#### 6.2 Contact Information
-For queries related to this document:
-- Author: Anton Ovod
+#### 6.2 Контактна інформація
+З питань щодо цього документа:
+- Автор: Антон Овод
 - Email: antovod36@gmail.com
-- Institution: Lublin University of Technology
+- Установа: Люблінська Політехніка
 
 ---
-This document is subject to revision as the project progresses.
+Цей документ підлягає перегляду в міру просування проєкту.
