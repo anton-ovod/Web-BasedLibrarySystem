@@ -11,8 +11,12 @@ while borrowing and returning will be handled in person.
 Librarians will use the system to manage the library's book catalog 
 and facilitate member interactions.
 
+#### 1.2 Definitions, Acronyms, and Abbreviations
+- **WLS**: Web-based Library System
+- **Member**: A user who can search, reserve, borrow, and prolong books, report issues with borrowed books, and request to donate books.
+- **Librarian**: A user responsible for managing library inventory, member interactions, and resolving account issues.
 
-#### 1.2 Scope
+#### 1.3 Scope
 The Library System is a web-based application designed to modernize library operations and improve user experience. 
 Its primary functionalities include:
 
@@ -29,15 +33,6 @@ Its primary functionalities include:
     approving or rejecting book donation requests, 
     responding to reports of lost or destroyed books, 
     and resolving member account issues.
-
-#### 1.3 Definitions, Acronyms, and Abbreviations
-- **LMS**: Library Management System
-- **Member**: A user who can borrow and reserve books.
-- **Librarian**: A user responsible for managing library operations.
-- **Administrator**: A user responsible for system configuration and user management.
-
-#### 1.4 References
-- [IEEE Standard 830-1998](https://ieeexplore.ieee.org/document/73053): Recommended Practice for Software Requirements Specifications.
 
 ### 2. Overall Description
 #### 2.1 Product Perspective
