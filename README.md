@@ -8,15 +8,27 @@ The purpose of this document is to outline the software requirements
 for a web-based Library System. 
 The system is designed to enable library members to search for and reserve books online, 
 while borrowing and returning will be handled in person. 
-Librarians will use the system to manage the library's book catalog and facilitate member interactions, 
-and administrators will oversee user accounts and system configurations.
+Librarians will use the system to manage the library's book catalog 
+and facilitate member interactions.
 
 
 #### 1.2 Scope
-The Library System is a web-based application designed to modernize library operations and improve user experience. Its primary functionalities include:
-- **For Members**: Searching for books, reserving available titles online, and accessing personal borrowing history. Actual borrowing and returning of books are conducted at the library.
-- **For Librarians**: Managing the book catalog, tracking borrowing and returning records, and generating reports to streamline daily operations.
-- **For Administrators**: Overseeing user account management, system settings, and generating advanced analytics reports to optimize library workflows.
+The Library System is a web-based application designed to modernize library operations and improve user experience. 
+Its primary functionalities include:
+
+- **For Readers**: Searching for books, reserving available titles online, 
+    prolonging borrowed books a limited number of times, 
+    reporting lost or destroyed books and receiving guidance from librarians, 
+    requesting to donate books to the library, 
+    and accessing personal borrowing history. 
+    Actual borrowing and returning of books are conducted at the library.
+
+- **For Librarians**: Managing the book catalog, 
+    tracking borrowing and returning records, 
+    generating reports to streamline daily operations, 
+    approving or rejecting book donation requests, 
+    responding to reports of lost or destroyed books, 
+    and resolving member account issues.
 
 #### 1.3 Definitions, Acronyms, and Abbreviations
 - **LMS**: Library Management System
