@@ -13,7 +13,7 @@ and facilitate member interactions.
 
 #### 1.2 Definitions, Acronyms, and Abbreviations
 - **WLS**: Web-based Library System
-- **Member**: A user who can search, reserve, borrow, and prolong books, report issues with borrowed books, and request to donate books.
+- **Reader**: A user who can search, reserve, borrow, and prolong books, report issues with borrowed books, and request to donate books.
 - **Librarian**: A user responsible for managing library inventory, member interactions, and resolving account issues.
 
 #### 1.3 Scope
@@ -36,74 +36,46 @@ Its primary functionalities include:
 
 ### 2. Overall Description
 #### 2.1 Product Perspective
-The WLS will replace manual record-keeping 
-with a digital system to improve efficiency and accuracy. 
-It will be a web-based application accessible via browsers.
+
 
 #### 2.2 Product Features
-- Book catalog management.
-- Member account management.
-- Borrowing, returning, and reserving workflows.
-- Notifications for due dates and overdue books.
+- 
 
 #### 2.3 User Characteristics
-- **Library Members**: General users with basic computer skills.
-- **Librarians**: Moderately experienced users familiar with library workflows.
+- **Library Members**: 
+- **Librarians**: 
 
 #### 2.4 Constraints
-- The system must comply with data protection regulations.
-- It should be accessible from standard web browsers.
-- Performance should remain optimal with up to 1,000 concurrent users.
+- 
 
 #### 2.5 Assumptions and Dependencies
-- Members will have internet access to use the system.
-- The library will provide required hardware and infrastructure.
+-
 
 ### 3. Functional Requirements
-#### 3.1 Member Features
-- Search for books by title, author, or category.
-- View book availability.
-- Borrow and return books.
-- Reserve unavailable books.
-- View borrowing history.
+#### 3.1 Reader Features
+- 
 
 #### 3.2 Librarian Features
-- Add, update, or remove books from the catalog.
-- Manage borrowing and returning processes.
-- Notify members about overdue books.
-- Generate inventory and transaction reports.
-
-#### 3.3 Administrator Features
-- Create, update, and delete user accounts.
-- Configure system policies (e.g., loan durations, fines).
-- Monitor system performance and usage.
-- Generate comprehensive reports.
+- 
 
 ### 4. Non-Functional Requirements
 #### 4.1 Performance
-- The system should support up to 1,000 concurrent users without performance degradation.
-
+- 
 #### 4.2 Usability
-- The interface should be user-friendly and intuitive.
-
+- 
 #### 4.3 Security
-- Role-based access control to restrict unauthorized actions.
-- Encrypted storage of sensitive data, such as passwords.
+-
 
 #### 4.4 Availability
-- The system should have 99.9% uptime.
+- 
 
 ### 5. System Models
 #### 5.1 Use Case Diagram
-_(To be added: A UML diagram showing interactions among members, librarians, and administrators.)_
+_(To be added: A UML diagram showing interactions among members, librarians.)_
 
 #### 5.2 Data Flow Diagram
 _(To be added: A visual representation of data flows within the system.)_
 
-### 6. Appendices
-#### 6.1 Glossary
-- **Book Catalog**: A database of all books available in the library.
-- **Reservation**: A request to hold a book for future borrowing.
 
 #### 6.2 Contact Information
 For queries related to this document:
