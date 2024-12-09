@@ -36,19 +36,19 @@ Its primary functionalities include:
 
 ### 2. Overall Description
 #### 2.1 Product Perspective
-The Library Management System will replace manual record-keeping with a digital system to improve efficiency and accuracy. It will be a web-based application accessible via browsers.
+The WLS will replace manual record-keeping 
+with a digital system to improve efficiency and accuracy. 
+It will be a web-based application accessible via browsers.
 
 #### 2.2 Product Features
 - Book catalog management.
 - Member account management.
 - Borrowing, returning, and reserving workflows.
 - Notifications for due dates and overdue books.
-- Reporting capabilities for administrators.
 
 #### 2.3 User Characteristics
 - **Library Members**: General users with basic computer skills.
 - **Librarians**: Moderately experienced users familiar with library workflows.
-- **Administrators**: Technically proficient users managing the system.
 
 #### 2.4 Constraints
 - The system must comply with data protection regulations.
@@ -108,8 +108,8 @@ _(To be added: A visual representation of data flows within the system.)_
 #### 6.2 Contact Information
 For queries related to this document:
 - Author: Anton Ovod
-- Email: [Your Email Address]
-- Institution: [Your Institution Name]
+- Email: antovod36@gmail.com
+- Institution: Lublin University of Technology
 
 ---
 This document is subject to revision as the project progresses.
