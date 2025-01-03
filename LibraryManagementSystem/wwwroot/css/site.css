@@ -1,10 +1,21 @@
+:root {
+    --primary-color: #FBFCF7;
+    --secondary-color: #32474C;
+    --tertiary-color: #B5582C;
+    --primary-subcolor: #70858A;
+    --secondary-subcolor: #DA9777;
+    --font-family: 'Montserrat', sans-serif;
+    --font-color: #32474C;
+    --secondary-font-color: #F2E4E4;
+}
+
 html {
   font-size: 14px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
@@ -12,11 +23,82 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+html{
+    height: 100%; 
+    padding: 0 20px;
 }
 
 body {
-  margin-bottom: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    color: var(--font-color);
+}
+
+/* Welcome page */
+.welcome-container {
+    background-color: var(--primary-color);
+}
+
+.text-section {
+    max-width: 50%;
+    padding: 20px;
+}
+
+.text-section h1 {
+    display: block;
+    font-size: 6rem;
+    line-height: 0.85;
+    font-weight: bold;
+}
+
+.text-section p {
+    font-size: 1rem;
+    margin: 30px 0;
+    line-height: 0.95;
+    max-width: 80%;
+}
+
+.login-button {
+    background-color: var(--tertiary-color);
+    color: var(--secondary-font-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    width: 50%;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #C96A3E;
+}
+
+.image-section {
+    max-width: 50%;
+    padding: 20px;
+}
+
+.image-section img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* LogIn page */
+.login-container{
+    height: 800px;
+    background-image: url("../images/BookShelfWithChair.png");
+}
+
+.login-wrapper{
+    background-color: var(--primary-color);
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }

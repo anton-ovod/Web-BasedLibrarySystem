@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Welcome Page";
+}
+
+<div class="welcome-container d-flex justify-content-evenly align-items-center ">
+    <div class="text-section">
+        <h1>WHIMSY<br>LIBRARY</h1>
+        <p>
+            <strong>Welcome to our library!</strong> We offer a wide selection of literature,
+            comfortable reading spaces, and opportunities for your growth and inspiration.
+        </p>
+        <form asp-action="Index" asp-controller="LogIn" method="post">
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+    </div>
+    <div class="image-section">
+        <img src="~/images/LibraryInterior.png" alt="Library Interior">
+    </div>
+</div>
