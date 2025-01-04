@@ -2,9 +2,9 @@
 
 namespace LibraryManagementSystem.Controllers
 {
-    public class LogInController : Controller
+    public class AuthController : Controller
     {
-        public IActionResult Index()
+        public IActionResult LogIn()
         {
             return View();
         }
