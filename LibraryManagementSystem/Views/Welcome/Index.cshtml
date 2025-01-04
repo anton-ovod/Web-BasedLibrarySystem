@@ -2,18 +2,25 @@
     ViewData["Title"] = "Welcome Page";
 }
 
-<div class="welcome-container d-flex justify-content-evenly align-items-center ">
-    <div class="text-section">
-        <h1>WHIMSY<br>LIBRARY</h1>
-        <p>
-            <strong>Welcome to our library!</strong> We offer a wide selection of literature,
-            comfortable reading spaces, and opportunities for your growth and inspiration.
-        </p>
-        <form asp-action="Index" asp-controller="LogIn" method="post">
-            <button type="submit" class="login-button">Log In</button>
-        </form>
-    </div>
-    <div class="image-section">
-        <img src="~/images/LibraryInterior.png" alt="Library Interior">
+
+<div class="container py-4">
+    <div class="row flex-md-row-reverse align-items-center g-4 py-4">
+
+        <div class="col-12 col-lg-6">
+            <img src="~/images/LibraryInterior.png" class="d-block mx-auto img-fluid" alt="Library Interior" loading="lazy">
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <h1 class="display-2 fw-bold lh-1 text-center text-lg-start mb-3">WHIMSY LIBRARY</h1>
+            <p class="lead text-center text-lg-start mb-4">
+                Welcome to Whimsy Library, a digital space where your reading journey comes to life.
+                Organize your books into categories, just like a real bookshelf.
+                Discover, track, and share your literary adventures today!
+            </p>
+            <form asp-controller="LogIn" asp-action="Index" method="post" class="col-12 col-lg-6">
+                <button type="submit" class="btn btn-primary btn-lg w-100">Log In</button>
+            </form>
+        </div>
     </div>
 </div>
+
