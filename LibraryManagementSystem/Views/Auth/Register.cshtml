@@ -10,7 +10,7 @@
 
         <div class="col-12 col-lg-10 mx-auto">
             <form asp-controller="Auth" asp-action="Register" method="post" class="w-lg-75 container">
-                
+
                 <div class="row mb-lg-3">
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
                         <input asp-for="Name" class="form-control" placeholder="Enter your name" />
@@ -39,12 +39,8 @@
                         <span asp-validation-for="Age" class="text-danger d-block text-center w-100"></span>
                     </div>
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <select asp-for="Gender" class="form-select">
-                            <option value="" disabled selected>Select your gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <span asp-validation-for="Gender" class="text-danger d-block text-center w-100"></span>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger d-block text-center w-100"></span>
                     </div>
                 </div>
 

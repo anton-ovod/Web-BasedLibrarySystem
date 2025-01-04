@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LibraryManagementSystem.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.Models
 {
@@ -25,6 +26,26 @@ namespace LibraryManagementSystem.Models
         public int Age { get; set; }
 
         [Required]
-        public string Gender { get; set; }
+        public string PasswordHash { get; set; }
+
+        public User(string name, string surname, string email, string phone, int age, string passwordHash)
+        {
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Phone = phone;
+            Age = age;
+            PasswordHash = passwordHash;
+        }
+
+        public User(RegisterViewModel model)
+        {
+            Name = model.Name;
+            Surname = model.Surname;
+            Email = model.Email;
+            Phone = model.Phone;
+            Age = model.Age;
+            PasswordHash = "";
+        }
     }
 }

@@ -1,5 +1,6 @@
 using LibraryManagementSystem.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace LibraryManagementSystem
 {
@@ -17,6 +18,17 @@ namespace LibraryManagementSystem
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDatabaseConnection"));
             });
 
+            builder.Services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.LoginPath = "/Auth/Login";
+                    options.AccessDeniedPath = "/Auth/AccessDenied";
+                    options.SlidingExpiration = true;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                    options.Cookie.IsEssential = true;
+                });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,7 +44,9 @@ namespace LibraryManagementSystem
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+           
 
             app.MapControllerRoute(
                 name: "default",

@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Identity.Client;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.ViewModels
 {
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(50, ErrorMessage = "Name must be less than 50 characters.")]
         [RegularExpression(@"^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż]+(?:[\s-][A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż]+)*$", ErrorMessage = "Name must contain only letters and spaces.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Surname is required.")]
-        [StringLength(50, ErrorMessage = "Surname must be less than 50 characters.")]
         [RegularExpression(@"^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż]+(?:[-\s][A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż]+)*$", ErrorMessage = "Surname must contain only letters, spaces and hyphens.")]
         public string Surname { get; set; }
 
@@ -27,8 +26,22 @@ namespace LibraryManagementSystem.ViewModels
         [RegularExpression(@"^\d+$", ErrorMessage = "Age must be a number.")]
         public int Age { get; set; }
 
-        [Required(ErrorMessage = "Gender is required.")]
-        public string Gender { get; set; }
+        [Required(ErrorMessage = "Password is required.")]
+        [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$",
+            ErrorMessage = "Password must be at least 8 characters long, contain at least one uppercase letter, and one number.")]
+        public string Password { get; set; }
+
+        public RegisterViewModel() { }
+        public RegisterViewModel(string name, string surname, string email, string phone, int age, string password)
+        {
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Phone = phone;
+            Age = age;
+            Password = password;
+        }
 
     }
 }

@@ -155,3 +155,23 @@ a:hover{
         min-height: 400px;
     }
 }
+
+.form-check-input{
+    border-color: var(--secodary-color);
+}
+
+.form-check-input:checked{
+    background-color: var(--secondary-color);
+    border-color: var(--primary-subcolor);
+}
+
+.form-check-input:checked:focus {
+    box-shadow: none;
+    border-color: var(--secodary-color);
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border-color: var(--secodary-color);
+}
+

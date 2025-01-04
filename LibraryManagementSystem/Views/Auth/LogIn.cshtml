@@ -1,4 +1,5 @@
-﻿
+﻿@model LibraryManagementSystem.ViewModels.LogInViewModel
+
 @{
     ViewData["Title"] = "LogIn Page";
 }
@@ -6,17 +7,26 @@
 <div class="container-fluid">
     <div class="row h-100">
         <div class="col-lg-6 d-flex align-items-center justify-content-center">
-            <form class="w-75">
+            <form asp-action="LogIn" method="post" class="w-75">
                 <h2 class="mb-4">WELCOME BACK</h2>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <input asp-for="Email" class="form-control" id="email" placeholder="Enter your email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+
+                <div class="mb-3 form-check">
+                    <input asp-for="RememberMe" type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember Me</label>
+                </div>
+
                 <a href="/Auth/ResetPassword">Forgot your password?</a>
+
                 <button type="submit" class="btn btn-secondary w-100 my-2">Log In</button>
                 <p>Don't have an account? <a href="/Auth/Register">Sign Up</a></p>
             </form>
