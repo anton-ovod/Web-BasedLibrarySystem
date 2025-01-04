@@ -11,6 +11,14 @@
 
 html {
   font-size: 20px;
+  margin: 0;
+}
+
+@media (max-width: 550px)
+{
+    html{
+        font-size: 16px;
+    }
 }
 
 body {
@@ -25,6 +33,18 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.container-fluid{
+    height: 100vh;
+}
+
+.login-bg-image {
+    background-image: url('/images/BookshelfWithLadder.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .btn-primary:active {
@@ -45,10 +65,6 @@ body {
     box-shadow: 0 0 10px var(--secondary-subcolor), 0 0 20px var(--secondary-subcolor);
 }
 
-btn-primary:active:focus{
-    box-shadow: none;
-}
-
 .btn-primary {
     background-color: var(--tertiary-color);
     border-color: var(--tertiary-color);
@@ -59,4 +75,83 @@ btn-primary:active:focus{
 .btn-primary:hover {
     background-color: var(--secondary-subcolor);
     border-color: var(--secondary-subcolor);
+}
+
+.btn-secondary:active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--primary-subcolor), 0 0 20px var(--primary-subcolor);
+}
+
+.btn-secondary:active:focus {
+    box-shadow: 0 0 10px var(--primary-subcolor), 0 0 20px var(--primary-subcolor);
+}
+
+.btn-secondary:focus {
+    color: white;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--primary-subcolor), 0 0 20px var(--primary-subcolor);
+}
+
+btn-secondary:active:focus {
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-subcolor);
+    border-color: var(--primary-subcolor);
+}
+
+a{
+    text-decoration: none;
+    color: var(--font-color);
+    font-weight: bold;
+}
+
+a:hover{
+    color: var(--primary-subcolor);
+}
+
+.form-control{
+    color: var(--font-color);
+}
+
+.form-control:focus{
+    border-color: var(--primary-subcolor);
+    box-shadow: 0 0 10px var(--primary-subcolor), 0 0 20px var(--primary-subcolor);
+}
+
+
+.register-fluid-container{
+    background-image: url(/images/ALotOfBooks.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+}
+
+.register-wrapper {
+    background-color: var(--primary-color);
+    height: 80vh;
+    min-height: 600px;
+    max-height: 90vh;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px var(--primary-subcolor), 0 0 20px var(--primary-subcolor);
+}
+
+@media (max-height: 601px)
+{
+    .register-wrapper{
+        min-height: 400px;
+    }
 }

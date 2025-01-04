@@ -1,0 +1,59 @@
+﻿@model LibraryManagementSystem.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container-fluid register-fluid-container d-flex justify-content-center align-items-center">
+    <div class="container register-wrapper d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-5 fw-bold text-center mb-4">Create an account</h1>
+
+        <div class="col-12 col-lg-10 mx-auto">
+            <form asp-controller="Auth" asp-action="Register" method="post" class="w-lg-75 container">
+                
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                        <span asp-validation-for="Name" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Surname" class="form-control" placeholder="Enter your surname" />
+                        <span asp-validation-for="Surname" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                        <span asp-validation-for="Email" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" />
+                        <span asp-validation-for="Phone" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Age" class="form-control" placeholder="Enter your age" />
+                        <span asp-validation-for="Age" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <select asp-for="Gender" class="form-select">
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-lg-3 d-flex justify-content-center">
+                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-secondary w-100 my-2">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

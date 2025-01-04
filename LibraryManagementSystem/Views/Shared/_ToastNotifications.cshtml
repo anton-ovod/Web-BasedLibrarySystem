@@ -1,0 +1,36 @@
+﻿@{
+    var toastMessage = TempData["ToastMessage"] as string;
+    var toastTitle = TempData["ToastTitle"] as string;
+    var toastType = TempData["ToastType"] as string;
+}
+
+@if (!string.IsNullOrEmpty(toastMessage))
+{
+    <div id="toast-container" class="position-fixed top-0 end-0 p-3">
+        <div id="toast-message" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toast-title">@toastTitle</strong>
+                <small>Now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div id="toast-body" class="toast-body text-white">
+                @toastMessage
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toast = new bootstrap.Toast(document.getElementById("toast-message"));
+            if ('@toastType' === 'success') {
+                document.getElementById("toast-message").classList.add('bg-success');
+                document.getElementById("toast-message").classList.remove('bg-danger');
+            } else if ('@toastType' === 'error') {
+                document.getElementById("toast-message").classList.add('bg-danger');
+                document.getElementById("toast-message").classList.remove('bg-success');
+            }
+            toast.show();
+        });
+    </script>
+}
+
