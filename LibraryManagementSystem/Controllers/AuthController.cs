@@ -1,5 +1,6 @@
 ﻿using LibraryManagementSystem.Contexts;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services;
 using LibraryManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,11 @@ namespace LibraryManagementSystem.Controllers
     {
 
         private readonly SqlDatabaseContext _context;
-
-        public AuthController(SqlDatabaseContext context)
+        private readonly EmailService _emailService;
+        public AuthController(SqlDatabaseContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -149,5 +151,89 @@ namespace LibraryManagementSystem.Controllers
 
             return RedirectToAction("LogIn", "Auth");
         }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ToastMessage"] = "Please correct the errors in the form.";
+                TempData["ToastTitle"] = "Reset Password Failed";
+                TempData["ToastType"] = "error";
+                return View(model);
+            }
+
+            // Check if the user exists
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == model.Email);
+            if (user == null)
+            {
+                // Prevent revealing if an email exists in the system
+                TempData["ToastMessage"] = "If the email exists in our system, a reset password link will be sent.";
+                TempData["ToastTitle"] = "Reset Password";
+                TempData["ToastType"] = "info";
+                return RedirectToAction("LogIn", "Auth");
+            }
+
+            // Generate a new temporary password
+            var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var passwordHasher = new PasswordHasher<User>();
+            user.PasswordHash = passwordHasher.HashPassword(user, newPassword);
+
+            // Update the user's password
+            try
+            {
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log error (optional)
+                // _logger.LogError(ex, "Error updating password for user with email {Email}", model.Email);
+
+                TempData["ToastMessage"] = "An error occurred while resetting your password. Please try again later.";
+                TempData["ToastTitle"] = "Reset Password Failed";
+                TempData["ToastType"] = "error";
+                return View(model);
+            }
+
+            // Send the new password to the user via email
+            try
+            {
+                var emailBody = $"<p>Hello {user.Name} {user.Surname},</p>" +
+                                $"<p>Your password has been reset. Here is your new temporary password:</p>" +
+                                $"<p><strong>{newPassword}</strong></p>" +
+                                $"<p>Please log in and change your password immediately.</p>";
+
+                await _emailService.SendEmailAsync(user.Email, "Password Reset Notification", emailBody);
+            }
+            catch (Exception ex)
+            {
+                // Log error (optional)
+                // _logger.LogError(ex, "Error sending password reset email to {Email}", model.Email);
+
+                TempData["ToastMessage"] = "Password reset was successful, but we couldn't send the email. Please contact support.";
+                TempData["ToastTitle"] = "Email Sending Failed";
+                TempData["ToastType"] = "warning";
+                return RedirectToAction("LogIn", "Auth");
+            }
+
+            // Inform the user about successful password reset
+            TempData["ToastMessage"] = "If the email exists, a new password has been sent to your email.";
+            TempData["ToastTitle"] = "Success";
+            TempData["ToastType"] = "success";
+
+            return RedirectToAction("LogIn", "Auth");
+        }
+
     }
 }

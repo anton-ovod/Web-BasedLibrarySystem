@@ -1,4 +1,5 @@
 using LibraryManagementSystem.Contexts;
+using LibraryManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -28,6 +29,14 @@ namespace LibraryManagementSystem
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     options.Cookie.IsEssential = true;
                 });
+
+            if(builder.Environment.IsDevelopment())
+            {
+                builder.Configuration.AddUserSecrets<Program>();
+            }
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddTransient<EmailService>();
 
             var app = builder.Build();
 
