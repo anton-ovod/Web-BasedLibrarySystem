@@ -1,6 +1,44 @@
 ﻿
-<h1>Secure data</h1>
 
-<form method="post" asp-controller="Auth" asp-action="LogOut">
-    <button type="submit">Log out</button>
-</form>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="container-fluid">
+    <header class="mb-3 border-bottom d-flex align-items-center">
+        <div class="d-flex flex-wrap align-items-center justify-content-between w-100 px-2">
+            <a href="/Home/Index" class="d-flex align-items-center mb-2 mt-2 mt-bg-opacity-25 mt-lg-0 mb-lg-0 text-dark text-decoration-none">
+                <img src="/images/LogoWhimsy.png" alt="Whimsy" width="200" height="40" class="bi me-2" aria-label="Whimsy" />
+            </a>
+
+            <div class="dropdown text-end my-2 my-lg-0">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="user-avatar rounded-circle">
+                        @ViewData["UserInitials"]
+                    </div>
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li>
+                        <form asp-action="Profile" asp-controller="Home" method="post">
+                            <button type="submit" class="dropdown-item">Profile</button>
+                        </form>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form asp-action="LogOut" asp-controller="Auth" method="post">
+                            <button type="submit" class="dropdown-item">Log out</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+
+    <h1>Secure data</h1>
+
+</div>
+
+
+

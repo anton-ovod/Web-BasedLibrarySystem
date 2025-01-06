@@ -1,0 +1,51 @@
+﻿@model LibraryManagementSystem.ViewModels.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container">
+    <h2 class="my-4">Your Profile</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    <form asp-action="Update" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="Name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="Surname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="Surname" name="Surname" value="@Model.Surname" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="Phone" name="Phone" value="@Model.Phone" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Age" class="form-label">Age</label>
+            <input type="number" class="form-control" id="Age" name="Age" value="@Model.Age" min="14" max="150" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
