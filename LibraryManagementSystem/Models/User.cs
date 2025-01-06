@@ -1,5 +1,7 @@
 ﻿using LibraryManagementSystem.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementSystem.Models
 {
@@ -28,6 +30,9 @@ namespace LibraryManagementSystem.Models
         [Required]
         public string PasswordHash { get; set; }
 
+        [NotMapped]
+        public static PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+
         public User(string name, string surname, string email, string phone, int age, string passwordHash)
         {
             Name = name;
@@ -45,7 +50,7 @@ namespace LibraryManagementSystem.Models
             Email = model.Email;
             Phone = model.Phone;
             Age = model.Age;
-            PasswordHash = "";
+            PasswordHash = passwordHasher.HashPassword(this, model.Password);
         }
     }
 }

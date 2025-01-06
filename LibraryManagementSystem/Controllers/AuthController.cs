@@ -1,12 +1,11 @@
-﻿using LibraryManagementSystem.Contexts;
+﻿using LibraryManagementSystem.Helpers;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services;
 using LibraryManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace LibraryManagementSystem.Controllers
@@ -14,11 +13,11 @@ namespace LibraryManagementSystem.Controllers
     public class AuthController : Controller
     {
 
-        private readonly SqlDatabaseContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly EmailService _emailService;
-        public AuthController(SqlDatabaseContext context, EmailService emailService)
+        public AuthController(IUserRepository userRepository, EmailService emailService)
         {
-            _context = context;
+            _userRepository = userRepository;
             _emailService = emailService;
         }
 
@@ -35,9 +34,7 @@ namespace LibraryManagementSystem.Controllers
         {
             await HttpContext.SignOutAsync("CookieAuthentication");
 
-            TempData["ToastMessage"] = "You have been logged out.";
-            TempData["ToastTitle"] = "Success";
-            TempData["ToastType"] = "success";
+            ToastMessageHelper.SetToastMessage(TempData, "You have been logged out.", "Success", ToastType.Success);
 
             return RedirectToAction("LogIn", "Auth");
         }
@@ -49,39 +46,30 @@ namespace LibraryManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ToastMessage"] = "Please correct the errors in the form";
-                TempData["ToastTitle"] = "Log In Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Please correct the errors in the form", "Log In Failed", ToastType.Error);
+
                 return View(model);
             }
 
-            // Check user credentials
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == model.Email);
+            var user = await _userRepository.GetByEmailAsync(model.Email);
             if (user == null)
             {
-                TempData["ToastMessage"] = "Invalid email or password";
-                TempData["ToastTitle"] = "Log In Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Invalid email or password", "Log In Failed", ToastType.Error);
+                
                 return View(model);
             }
 
-            var passwordHasher = new PasswordHasher<User>();
-            var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
-            if (passwordVerificationResult != PasswordVerificationResult.Success)
+            if (!await _userRepository.IsPasswordCorrectAsync(user, model.Password))
             {
-                TempData["ToastMessage"] = "Invalid email or password";
-                TempData["ToastTitle"] = "Log In Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Invalid email or password", "Log In Failed", ToastType.Error);
                 return View(model);
             }
 
-            // Create authentication claims
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
             };
 
-            // Create authentication cookie
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
             var authProperties = new AuthenticationProperties
             {
@@ -89,11 +77,18 @@ namespace LibraryManagementSystem.Controllers
                 ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : null
             };
 
-            await HttpContext.SignInAsync("CookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
+            try
+            {
+                await HttpContext.SignInAsync("CookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
+            }
+            catch
+            {
+                ToastMessageHelper.SetToastMessage(TempData, "An error occurred while logging in. Please try again later.", "Log In Failed", ToastType.Error);
+                return View(model);
+            }
 
-            TempData["ToastMessage"] = "Log In successful!";
-            TempData["ToastTitle"] = "Success";
-            TempData["ToastType"] = "success";
+            ToastMessageHelper.SetToastMessage(TempData, "Log In successful!", "Success", ToastType.Success);
+            
             return RedirectToAction("Index", "Home");
 
         }
@@ -112,43 +107,33 @@ namespace LibraryManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ToastMessage"] = "Please correct the errors in the form.";
-                TempData["ToastTitle"] = "Registration Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Please correct the errors in the form", "Registration Failed", ToastType.Error);
                 return View(model);
             }
 
-            // Check if a user with the same email already exists
-            if (_context.Users.Any(u => u.Email == model.Email))
+            if (!await _userRepository.IsUniqueEmailAsync(model.Email))
             {
-                TempData["ToastMessage"] = "A user with this email already exists.";
-                TempData["ToastTitle"] = "Registration Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Registration Failed", ToastType.Error);
                 return View(model);
             }
 
-            if (_context.Users.Any(u => u.Phone == model.Phone))
+            if (!await _userRepository.IsUniquePhoneNumberAsync(model.Phone))
             {
-                TempData["ToastMessage"] = "A user with this phone number already exists.";
-                TempData["ToastTitle"] = "Registration Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Registration Failed", ToastType.Error);
                 return View(model);
             }
 
-            // Hash the password
-            var passwordHasher = new PasswordHasher<User>();
             var newUser = new User(model);
-            string passwordHash = passwordHasher.HashPassword(newUser, model.Password);
-            newUser.PasswordHash = passwordHash;
 
-            // Add the user to the database
-            await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
+            var result = await _userRepository.AddAsync(newUser);
 
-            TempData["ToastMessage"] = "Registration successful! Please log in.";
-            TempData["ToastTitle"] = "Success";
-            TempData["ToastType"] = "success";
+            if(result is null)
+            {
+                ToastMessageHelper.SetToastMessage(TempData, "An error occurred while registering. Please try again later.", "Registration Failed", ToastType.Error);
+                return View(model);
+            }
 
+            ToastMessageHelper.SetToastMessage(TempData, "Registration successful!", "Success", ToastType.Success);
             return RedirectToAction("LogIn", "Auth");
         }
 
@@ -167,46 +152,27 @@ namespace LibraryManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ToastMessage"] = "Please correct the errors in the form.";
-                TempData["ToastTitle"] = "Reset Password Failed";
-                TempData["ToastType"] = "error";
+                ToastMessageHelper.SetToastMessage(TempData, "Please correct the errors in the form", "Reset Password Failed", ToastType.Error);
                 return View(model);
             }
 
-            // Check if the user exists
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == model.Email);
+            var user = await _userRepository.GetByEmailAsync(model.Email);
             if (user == null)
             {
-                // Prevent revealing if an email exists in the system
-                TempData["ToastMessage"] = "If the email exists in our system, a reset password link will be sent.";
-                TempData["ToastTitle"] = "Reset Password";
-                TempData["ToastType"] = "info";
+                ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Reset Password Failed", ToastType.Error);
                 return RedirectToAction("LogIn", "Auth");
             }
 
-            // Generate a new temporary password
             var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
-            var passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, newPassword);
+            user.PasswordHash = Models.User.passwordHasher.HashPassword(user, newPassword);
 
-            // Update the user's password
-            try
-            {
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                // Log error (optional)
-                // _logger.LogError(ex, "Error updating password for user with email {Email}", model.Email);
+            var result = await _userRepository.UpdateAsync(user);
 
-                TempData["ToastMessage"] = "An error occurred while resetting your password. Please try again later.";
-                TempData["ToastTitle"] = "Reset Password Failed";
-                TempData["ToastType"] = "error";
+            if (result is null)
+            {
+                ToastMessageHelper.SetToastMessage(TempData, "An error occurred while resetting the password. Please try again later.", "Reset Password Failed", ToastType.Error);
                 return View(model);
             }
-
-            // Send the new password to the user via email
             try
             {
                 var emailBody = $"<p>Hello {user.Name} {user.Surname},</p>" +
@@ -216,21 +182,13 @@ namespace LibraryManagementSystem.Controllers
 
                 await _emailService.SendEmailAsync(user.Email, "Password Reset Notification", emailBody);
             }
-            catch (Exception ex)
+            catch
             {
-                // Log error (optional)
-                // _logger.LogError(ex, "Error sending password reset email to {Email}", model.Email);
-
-                TempData["ToastMessage"] = "Password reset was successful, but we couldn't send the email. Please contact support.";
-                TempData["ToastTitle"] = "Email Sending Failed";
-                TempData["ToastType"] = "warning";
+                ToastMessageHelper.SetToastMessage(TempData, "An error occurred while sending the email. Please try again later.", "Reset Password Failed", ToastType.Error);
                 return RedirectToAction("LogIn", "Auth");
             }
-
-            // Inform the user about successful password reset
-            TempData["ToastMessage"] = "If the email exists, a new password has been sent to your email.";
-            TempData["ToastTitle"] = "Success";
-            TempData["ToastType"] = "success";
+            
+            ToastMessageHelper.SetToastMessage(TempData, "Password reset successful! Check your email for the new password.", "Success", ToastType.Success);
 
             return RedirectToAction("LogIn", "Auth");
         }

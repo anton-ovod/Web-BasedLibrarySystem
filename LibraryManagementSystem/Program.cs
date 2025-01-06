@@ -1,4 +1,6 @@
 using LibraryManagementSystem.Contexts;
+using LibraryManagementSystem.Repositories.Implementations;
+using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -36,7 +38,8 @@ namespace LibraryManagementSystem
             }
 
             builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-            builder.Services.AddTransient<EmailService>();
+            builder.Services.AddScoped<EmailService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
