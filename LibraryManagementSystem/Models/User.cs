@@ -52,5 +52,16 @@ namespace LibraryManagementSystem.Models
             Age = model.Age;
             PasswordHash = passwordHasher.HashPassword(this, model.Password);
         }
+
+        public User(UserProfileViewModel model, User currentUser)
+        {
+            Id = currentUser.Id;
+            Name = model.Name;
+            Surname = model.Surname;
+            Email = model.Email;
+            Phone = model.Phone;
+            Age = model.Age;
+            PasswordHash = model.NewPassword is null ? currentUser.PasswordHash : passwordHasher.HashPassword(this, model.NewPassword);
+        }
     }
 }

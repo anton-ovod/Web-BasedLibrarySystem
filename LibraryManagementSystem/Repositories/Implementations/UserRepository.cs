@@ -3,8 +3,6 @@ using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace LibraryManagementSystem.Repositories.Implementations
 {

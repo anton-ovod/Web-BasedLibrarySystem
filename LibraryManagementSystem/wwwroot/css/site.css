@@ -147,6 +147,14 @@ a:hover{
     opacity: 0.85;
 }
 
+.profile-fluid-container {
+    background-image: url(/images/Library.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+}
+
 .register-wrapper {
     background-color: var(--primary-color);
     height: 80vh;
@@ -198,5 +206,9 @@ header{
     color: white;
     text-transform: uppercase; 
     overflow: hidden;
+}
+
+.dropdown-item:active{
+    background-color: var(--secondary-color);
 }
 

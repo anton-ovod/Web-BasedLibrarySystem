@@ -4,48 +4,62 @@
     ViewData["Title"] = "Profile";
 }
 
-<div class="container">
-    <h2 class="my-4">Your Profile</h2>
+<div class="container-fluid profile-fluid-container d-flex justify-content-center align-items-center">
+    <div class="container register-wrapper d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-5 fw-bold text-center mb-4">Your profile</h1>
 
-    @if (TempData["Message"] != null)
-    {
-        <div class="alert alert-success">
-            @TempData["Message"]
-        </div>
-    }
+        <div class="col-12 col-lg-10 mx-auto">
+            <form asp-action="Profile" method="post" class="w-lg-75 container">
+                <input asp-for="Id" type="hidden" />
 
-    <form asp-action="Update" method="post">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="Name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Name" class="form-control" placeholder="Enter your name" value="@Model.Name"/>
+                        <span asp-validation-for="Name" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Surname" class="form-control" placeholder="Enter your surname" value="@Model.Surname" />
+                        <span asp-validation-for="Surname" class="text-danger d-block text-center w-100"></span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="Surname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="Surname" name="Surname" value="@Model.Surname" required />
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Email" class="form-control" placeholder="Enter your email" value="@Model.Email" />
+                        <span asp-validation-for="Email" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" value="@Model.Phone" />
+                        <span asp-validation-for="Phone" class="text-danger d-block text-center w-100"></span>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="mb-3">
-            <label for="Email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
-        </div>
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="Age" class="form-control" placeholder="Enter your age" value="@Model.Age" />
+                        <span asp-validation-for="Age" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                        <input asp-for="NewPassword" class="form-control" placeholder="Enter new password" />
+                        <span asp-validation-for="NewPassword" class="text-danger d-block text-center w-100"></span>
+                    </div>
+                </div>
 
-        <div class="mb-3">
-            <label for="Phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control" id="Phone" name="Phone" value="@Model.Phone" required />
-        </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-secondary w-100 my-2">Update profile</button>
+                    </div>
+                </div>
 
-        <div class="mb-3">
-            <label for="Age" class="form-label">Age</label>
-            <input type="number" class="form-control" id="Age" name="Age" value="@Model.Age" min="14" max="150" required />
+                <div class="row mb-lg-3 d-flex justify-content-center">
+                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                        <a asp-controller="Home" asp-action="Index" class="w-100 text-center fs-6">
+                            Back to Home
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <button type="submit" class="btn btn-primary">Update Profile</button>
-    </form>
+    </div>
 </div>
+
