@@ -69,7 +69,7 @@ namespace LibraryManagementSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Models.User", b =>
