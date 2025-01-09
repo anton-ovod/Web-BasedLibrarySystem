@@ -1,5 +1,6 @@
 ﻿using LibraryManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,8 @@ namespace LibraryManagementSystem.Models
 
         [NotMapped]
         public static PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+
+        public virtual ICollection<Book> Books { get; set; } = new HashSet<Book>();
 
         public User(string name, string surname, string email, string phone, int age, string passwordHash)
         {
