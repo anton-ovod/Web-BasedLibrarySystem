@@ -32,7 +32,7 @@ namespace LibraryManagementSystem.Models
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [Required]
         public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;

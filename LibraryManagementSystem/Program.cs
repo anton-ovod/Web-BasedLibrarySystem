@@ -26,9 +26,8 @@ namespace LibraryManagementSystem
                 {
                     options.Cookie.HttpOnly = true;
                     options.LoginPath = "/Auth/Login";
-                    options.AccessDeniedPath = "/Auth/AccessDenied";
                     options.SlidingExpiration = true;
-                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.IsEssential = true;
                 });
 

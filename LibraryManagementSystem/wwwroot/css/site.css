@@ -23,14 +23,21 @@ html {
 
 body {
     font-family: var(--font-family);
-    width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     color: var(--font-color);
     background-color: var(--primary-color);
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
 .full-screen {
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,7 +199,7 @@ a:hover{
 }
 
 header{
-    min-height: 100px;
+    min-height: 80px;
 }
 .user-avatar {
     background-color: var(--secondary-color);
@@ -210,5 +217,70 @@ header{
 
 .dropdown-item:active{
     background-color: var(--secondary-color);
+}
+
+.progress-bar{
+    background-color: var(--secondary-color);
+}
+
+.card {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 .25rem rgba(0, 0, 0, .1);
+}
+
+.page-link:hover{
+    color: var(--font-color);
+}
+
+.page-item.active .page-link{
+   background-color: var(--secondary-color);
+   border-color: var(--secondary-color);
+}
+
+.page-link{
+    color: var(--font-color);
+}
+
+.page-link:active:focus{
+    color: var(--font-color);
+}
+.page-link:focus{
+    color: var(--font-color);
+}
+
+.delete-btn:hover
+{
+    color: white; 
+}
+
+.adaptive-img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 60vh;
+}
+
+
+@media (min-width: 1440px) {
+    .adaptive-img {
+        min-height: 50vh;
+        max-height: 54vh;
+    }
+}
+
+@media (min-width: 1640px) {
+    .adaptive-img {
+        max-height: 70vh; 
+    }
 }
 

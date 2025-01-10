@@ -10,17 +10,8 @@ using System.Security.Claims;
 
 namespace LibraryManagementSystem.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController(IUserRepository userRepository, EmailService emailService) : Controller
     {
-
-        private readonly IUserRepository _userRepository;
-        private readonly EmailService _emailService;
-        public AuthController(IUserRepository userRepository, EmailService emailService)
-        {
-            _userRepository = userRepository;
-            _emailService = emailService;
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult LogIn()
@@ -51,7 +42,7 @@ namespace LibraryManagementSystem.Controllers
                 return View(model);
             }
 
-            var user = await _userRepository.GetByEmailAsync(model.Email);
+            var user = await userRepository.GetByEmailAsync(model.Email);
             if (user == null)
             {
                 ToastMessageHelper.SetToastMessage(TempData, "Invalid email or password", "Log In Failed", ToastType.Error);
@@ -59,7 +50,7 @@ namespace LibraryManagementSystem.Controllers
                 return View(model);
             }
 
-            if (!await _userRepository.IsPasswordCorrectAsync(user, model.Password))
+            if (!await userRepository.IsPasswordCorrectAsync(user, model.Password))
             {
                 ToastMessageHelper.SetToastMessage(TempData, "Invalid email or password", "Log In Failed", ToastType.Error);
                 return View(model);
@@ -111,13 +102,13 @@ namespace LibraryManagementSystem.Controllers
                 return View(model);
             }
 
-            if (!await _userRepository.IsUniqueEmailAsync(model.Email))
+            if (!await userRepository.IsUniqueEmailAsync(model.Email))
             {
                 ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Registration Failed", ToastType.Error);
                 return View(model);
             }
 
-            if (!await _userRepository.IsUniquePhoneNumberAsync(model.Phone))
+            if (!await userRepository.IsUniquePhoneNumberAsync(model.Phone))
             {
                 ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Registration Failed", ToastType.Error);
                 return View(model);
@@ -125,7 +116,7 @@ namespace LibraryManagementSystem.Controllers
 
             var newUser = new User(model);
 
-            var result = await _userRepository.AddAsync(newUser);
+            var result = await userRepository.AddAsync(newUser);
 
             if(result is null)
             {
@@ -156,7 +147,7 @@ namespace LibraryManagementSystem.Controllers
                 return View(model);
             }
 
-            var user = await _userRepository.GetByEmailAsync(model.Email);
+            var user = await userRepository.GetByEmailAsync(model.Email);
             if (user == null)
             {
                 ToastMessageHelper.SetToastMessage(TempData, "Provided data is not correct", "Reset Password Failed", ToastType.Error);
@@ -166,7 +157,7 @@ namespace LibraryManagementSystem.Controllers
             var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
             user.PasswordHash = Models.User.passwordHasher.HashPassword(user, newPassword);
 
-            var result = await _userRepository.UpdateAsync(user);
+            var result = await userRepository.UpdateAsync(user);
 
             if (result is null)
             {
@@ -180,7 +171,7 @@ namespace LibraryManagementSystem.Controllers
                                 $"<p><strong>{newPassword}</strong></p>" +
                                 $"<p>Please log in and change your password immediately.</p>";
 
-                await _emailService.SendEmailAsync(user.Email, "Password Reset Notification", emailBody);
+                await emailService.SendEmailAsync(user.Email, "Password Reset Notification", emailBody);
             }
             catch
             {
