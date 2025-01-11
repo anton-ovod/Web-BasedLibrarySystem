@@ -27,8 +27,8 @@ namespace LibraryManagementSystem.ViewModels
 
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$",
-            ErrorMessage = "Password must be at least 8 characters long, contain at least one uppercase letter, and one number.")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$",
+            ErrorMessage = "Password must be at least 8 characters long, contain at least one uppercase letter, one number and special char.")]
         public string Password { get; set; }
 
         public RegisterViewModel() { }

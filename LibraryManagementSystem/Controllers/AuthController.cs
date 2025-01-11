@@ -66,7 +66,7 @@ namespace LibraryManagementSystem.Controllers
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = model.RememberMe,
-                ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : null
+                ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddHours(2) : null
             };
 
             try
@@ -155,7 +155,7 @@ namespace LibraryManagementSystem.Controllers
                 return RedirectToAction("LogIn", "Auth");
             }
 
-            var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var newPassword = PasswordGenerator.GeneratePassword();
             user.PasswordHash = Models.User.passwordHasher.HashPassword(user, newPassword);
 
             var result = await userRepository.UpdateAsync(user);
