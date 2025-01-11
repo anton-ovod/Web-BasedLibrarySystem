@@ -273,8 +273,11 @@ header{
 
 @media (min-width: 1440px) {
     .adaptive-img {
-        min-height: 54vh;
-        max-height: 54vh;
+        min-height: 50vh;
+        max-height: 50vh;
+    }
+    .bookshelf{
+        height: 73vh;
     }
 }
 
@@ -282,6 +285,10 @@ header{
     .adaptive-img {
         min-height: 64vh;
         max-height: 70vh; 
+    }
+
+    .bookshelf {
+        height: 90vh;
     }
 }
 
