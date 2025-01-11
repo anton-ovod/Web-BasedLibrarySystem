@@ -1,4 +1,4 @@
-﻿@model LibraryManagementSystem.Models.Book
+﻿@model LibraryManagementSystem.ViewModels.CreateBookViewModel
 
 @{
     ViewData["Title"] = "Add New Book";
@@ -7,16 +7,15 @@
 <div class="container-fluid d-flex align-items-center flex-wrap mt-2 mt-lg-0">
     <div class="container">
         <h1 class="display-5 fw-bold text-center mb-2 mb-lg-1">Add new book</h1>
-        <form asp-action="Create" method="post" class="row m-0 p-3">
-            <input asp-for="Id" type="hidden" />
+        <form asp-action="Create" method="post" class="row m-0 p-3" enctype="multipart/form-data">
             <div class="col-12 col-md-6 d-flex pe-md-2 pe-lg-3 flex-column align-items-center mb-3 mb-md-0 px-0">
                 <img id="coverPreview"
                      src="/images/BookCoverPlaceholder.jpg"
                      alt="Book Cover"
                      class="img-fluid border mb-2"
                      style="max-height: 468px; width: 100%; object-fit: contain;" />
-                <label for="newCover" class="form-label">Upload cover:</label>
-                <input type="file" id="newCover" name="newCover" class="form-control" accept="image/*" />
+                <label asp-for="NewCover" class="form-label">Upload cover:</label>
+                <input type="file" id="newCover" asp-for="NewCover" class="form-control" accept="image/*" />
             </div>
 
             <div class="col-12 col-md-6">

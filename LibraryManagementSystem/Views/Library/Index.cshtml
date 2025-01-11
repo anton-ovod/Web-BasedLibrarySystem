@@ -1,5 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@model LibraryManagementSystem.ViewModels.LibraryViewModel
+
+@{
+    ViewData["Title"] = "Whimsy Library";
 }
 
 <div class="container-fluid d-flex flex-column">
@@ -17,7 +20,7 @@
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li>
-                        <form asp-action="Profile" method="get">
+                        <form asp-action="Profile" asp-controller="User" method="get">
                             <button type="submit" class="dropdown-item">Profile</button>
                         </form>
                     </li>
@@ -32,59 +35,88 @@
         </div>
     </header>
 
-    <div class="row mx-0 py-2 justify-content-end">
+    <form asp-action="Index" method="post" class="row mx-0 py-2 justify-content-end">
         <div class="col-12 col-lg-3 mb-3 mb-lg-0">
-            <input type="text" class="form-control" placeholder="Search for a book" id="searchBox" />
+            <input type="text" asp-for="SearchQuery" class="form-control" placeholder="Search for a book"/>
         </div>
-        
+    
         <div class="col-12 col-lg-2 d-flex align-items-center">
-            <button type="button" class="btn btn-secondary w-100">
+            <button type="submit" class="btn btn-secondary w-100">
                 <i class="bi bi-search"></i> Search
             </button>
         </div>
-    </div>
+    </form>
 
     <div class="row mx-0 pb-3 pt-0">
-        @for (var i = 0; i < 1; i++)
+        @if (@Model.Books.ToList().Count == 0 || !Model.Books.Any())
         {
-            <div class="col-6 col-lg-3 d-flex align-items-stretch justify-content-center mb-2 mb-md-0">
-                <a href="@Url.Action("Details", "Book", new { id = i })" class="text-decoration-none">
-                    <div class="card box-shadow p-2">
-                        <img class="card-img-top mb-2 adaptive-img" src="/images/BookCoverPlaceholder.jpg" alt="BookCover" />
-                        <div class="card-body d-flex flex-column p-0">
-                            <h5 class="card-title text-center m-0">Another Book</h5>
-                            <p class="card-text text-center text-muted fs-6 mb-2">by Another Author</p>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                    50%
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-outline-danger position-absolute  top-0 end-0 m-2" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="preventLinkClick(event);">
-                            <i class="bi bi-x-lg delete-btn"></i>
-                        </button>
-                    </div>
-                </a>
+            <div class="alert alert-info text-center" role="alert">
+                No books found. Try adjusting your search or adding new books!
             </div>
         }
+        else
+        {
+            @foreach (var book in Model.Books)
+            {
+                <div class="col-6 col-lg-3 d-flex align-items-stretch justify-content-center mb-2 mb-md-0">
+                    <a href="@Url.Action("Details", "Book", new { id = book.Id })" class="text-decoration-none">
+                        <div class="card box-shadow p-2">
+                            <img class="card-img-top mb-2 adaptive-img" src="@((book.Cover != null) ? $"data:image/jpeg;base64,{Convert.ToBase64String(book.Cover)}" : "/images/BookCoverPlaceholder.jpg")" alt="BookCover"/>
+                            <div class="card-body d-flex flex-column p-0">
+                                <h5 class="card-title text-center m-0">@book.Title</h5>
+                                <p class="card-text text-center text-muted fs-6 mb-2">by @book.Author</p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: @(book.ReadPagesNumber * 100 / book.PagesNumber)%"
+                                         aria-valuenow="@(book.ReadPagesNumber * 100 / book.PagesNumber)" aria-valuemin="0" aria-valuemax="100">
+                                        @(book.ReadPagesNumber * 100 / book.PagesNumber)%
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-danger position-absolute top-0 end-0 m-2" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setBookId(event, @book.Id);">
+                                <i class="bi bi-x-lg delete-btn"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
     </div>
+    @if (@Model.Books.ToList().Count != 0 && Model.Books.Any())
+    {
+        <div class="row mx-0">
+            <ul class="pagination justify-content-center m-0 pb-2">
+                <!-- Previous Page -->
+                <li class="page-item @(Model.CurrentPage <= 1 ? "disabled" : "")">
+                    <form asp-action="Index" method="post">
+                        <input type="hidden" name="searchQuery" value="@Model.SearchQuery"/>
+                        <input type="hidden" name="page" value="@(Model.CurrentPage - 1)"/>
+                        <button type="submit" class="page-link">Previous</button>
+                    </form>
+                </li>
 
-    <div class="row mx-0">
-        <ul class="pagination justify-content-center m-0 pb-2">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </div>
-    
+                <!-- Page Numbers -->
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <form asp-action="Index" method="post">
+                            <input type="hidden" name="searchQuery" value="@Model.SearchQuery"/>
+                            <input type="hidden" name="page" value="@i"/>
+                            <button type="submit" class="page-link">@i</button>
+                        </form>
+                    </li>
+                }
+
+                <!-- Next Page -->
+                <li class="page-item @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
+                    <form asp-action="Index" method="post">
+                        <input type="hidden" name="searchQuery" value="@Model.SearchQuery"/>
+                        <input type="hidden" name="page" value="@(Model.CurrentPage + 1)"/>
+                        <button type="submit" class="page-link">Next</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    }
     <a href="@Url.Action("Create", "Book")" class="btn btn-secondary rounded-circle shadow-lg position-fixed" 
        style="width: 60px; height: 60px; bottom: 20px; right: 20px; display: flex; justify-content: center; align-items: center;">
         <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i>
@@ -103,7 +135,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form method="post" action="@Url.Action("Delete", "Book")" id="deleteForm">
+                    <form method="post" asp-controller="Book" asp-action="Delete" id="deleteForm">
                         <input type="hidden" id="bookId" name="bookId" />
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
