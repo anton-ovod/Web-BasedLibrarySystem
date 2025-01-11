@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LibraryManagementSystem.Extensions;
+using LibraryManagementSystem.ViewModels;
 
 namespace LibraryManagementSystem.Models
 {
@@ -31,7 +33,6 @@ namespace LibraryManagementSystem.Models
         public int ReadPagesNumber { get; set; }
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [Required]
@@ -41,6 +42,35 @@ namespace LibraryManagementSystem.Models
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
+
+        public Book() {}
+
+        public Book(CreateBookViewModel model, int userId)
+        {
+            Title = model.Title;
+            Author = model.Author;
+            Description = model.Description;
+            Genres = model.Genres;
+            Cover = model.NewCover?.ToByteArray();
+            PagesNumber = model.PagesNumber;
+            ReadPagesNumber = model.ReadPagesNumber;
+            UserId = userId;
+        }
+
+        public Book(UpdateBookViewModel model, Book existingBook)
+        {
+            Title = model.Title;
+            Author = model.Author;
+            Description = model.Description;
+            Genres = model.Genres;
+            Cover = (model.NewCover is null) ? model.Cover : model.NewCover.ToByteArray();
+            PagesNumber = model.PagesNumber;
+            ReadPagesNumber = model.ReadPagesNumber;
+            LastUpdatedAt = DateTime.UtcNow;
+            CreatedAt = existingBook.CreatedAt;
+            UserId = existingBook.UserId;
+            Id = existingBook.Id;
+        }
     }
 }
