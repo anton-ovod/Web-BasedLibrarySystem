@@ -24,3 +24,8 @@ document.getElementById('newCover')
             preview.src = '/images/BookCoverPlaceholder.jpg';
         }
     });
+
+function setBookId(e, bookId) {
+    e.preventDefault();
+    document.getElementById('bookId').value = bookId;
+}
