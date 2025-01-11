@@ -6,22 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Repositories.Implementations
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(SqlDatabaseContext dbContext) : IUserRepository
     {
-
-        private readonly SqlDatabaseContext _context;
-
-        public UserRepository(SqlDatabaseContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<User?> AddAsync(User user)
+        public async Task<User?> AddAsync(User newUser)
         {
             try
             {
-                var addedUser = await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
+                var addedUser = await dbContext.Users.AddAsync(newUser);
+                await dbContext.SaveChangesAsync();
                 return addedUser.Entity;
             }
             catch (Exception ex)
@@ -38,8 +30,8 @@ namespace LibraryManagementSystem.Repositories.Implementations
                 var existingUser = await GetByIdAsync(id);
                 if (existingUser is null) return null;
 
-                await _context.Users.Where(u => u.Id == id).ExecuteDeleteAsync();
-                await _context.SaveChangesAsync();
+                await dbContext.Users.Where(u => u.Id == id).ExecuteDeleteAsync();
+                await dbContext.SaveChangesAsync();
                 return existingUser;
             }
             catch(Exception ex)
@@ -53,7 +45,7 @@ namespace LibraryManagementSystem.Repositories.Implementations
         {
             try
             {
-                return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+                return await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
             }
             catch(Exception ex)
             {
@@ -66,7 +58,7 @@ namespace LibraryManagementSystem.Repositories.Implementations
         {
             try
             {
-                return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+                return await dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             }
             catch (Exception ex)
             {
@@ -94,7 +86,7 @@ namespace LibraryManagementSystem.Repositories.Implementations
         {
             try
             {
-                return !await _context.Users.AnyAsync(u => u.Email == email);
+                return !await dbContext.Users.AnyAsync(u => u.Email == email);
             }
             catch (Exception ex)
             {
@@ -107,7 +99,7 @@ namespace LibraryManagementSystem.Repositories.Implementations
         {
             try
             {
-                return !await _context.Users.AnyAsync(u => u.Phone == phoneNumber);
+                return !await dbContext.Users.AnyAsync(u => u.Phone == phoneNumber);
             }
             catch (Exception ex)
             {
@@ -116,25 +108,25 @@ namespace LibraryManagementSystem.Repositories.Implementations
             }
         }
 
-        public async Task<User?> UpdateAsync(User user)
+        public async Task<User?> UpdateAsync(User updatedUser)
         {
             try
             {
-                var existingUser = await GetByIdAsync(user.Id);
+                var existingUser = await GetByIdAsync(updatedUser.Id);
                 if (existingUser is null) return null;
 
-                await _context.Users
-                    .Where(u => u.Id == user.Id)
+                await dbContext.Users
+                    .Where(u => u.Id == updatedUser.Id)
                     .ExecuteUpdateAsync(u => u
-                       .SetProperty(u => u.Name, user.Name)
-                       .SetProperty(u => u.Surname, user.Surname)
-                       .SetProperty(u => u.Email, user.Email)
-                       .SetProperty(u => u.Phone, user.Phone)
-                       .SetProperty(u => u.Age, user.Age)
-                       .SetProperty(u => u.PasswordHash, user.PasswordHash));
+                       .SetProperty(u => u.Name, updatedUser.Name)
+                       .SetProperty(u => u.Surname, updatedUser.Surname)
+                       .SetProperty(u => u.Email, updatedUser.Email)
+                       .SetProperty(u => u.Phone, updatedUser.Phone)
+                       .SetProperty(u => u.Age, updatedUser.Age)
+                       .SetProperty(u => u.PasswordHash, updatedUser.PasswordHash));
 
-                await _context.SaveChangesAsync();
-                return user;
+                await dbContext.SaveChangesAsync();
+                return updatedUser;
             }
             catch(Exception ex)
             {
