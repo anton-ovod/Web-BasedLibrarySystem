@@ -58,7 +58,7 @@ namespace LibraryManagementSystem.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
@@ -80,7 +80,7 @@ namespace LibraryManagementSystem.Controllers
 
             ToastMessageHelper.SetToastMessage(TempData, "Log In successful!", "Success", ToastType.Success);
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Library");
 
         }
 

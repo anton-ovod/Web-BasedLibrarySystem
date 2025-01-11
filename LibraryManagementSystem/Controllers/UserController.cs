@@ -1,19 +1,33 @@
 ﻿using LibraryManagementSystem.Helpers;
 using LibraryManagementSystem.Models;
-using LibraryManagementSystem.Repositories.Implementations;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryManagementSystem.Controllers
 {
+    [Authorize]
     public class UserController(IUserRepository userRepository) : Controller
     {
 
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            var currentUser = await userRepository.GetByEmailAsync(User.Identity!.Name!);
+            var nameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(nameIdentifier))
+            {
+                throw new InvalidOperationException("NameIdentifier claim not found.");
+            }
+
+            var currentUser = await userRepository.GetByIdAsync(int.Parse(nameIdentifier));
+
+            if (currentUser == null)
+            {
+                throw new InvalidOperationException($"User with ID {nameIdentifier} not found.");
+            }
 
             var model = new UserProfileViewModel(currentUser!);
 
@@ -42,7 +56,7 @@ namespace LibraryManagementSystem.Controllers
             }
 
             ToastMessageHelper.SetToastMessage(TempData, "Profile updated successfully.", "Success", ToastType.Success);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Library");
         }
     }
 }
