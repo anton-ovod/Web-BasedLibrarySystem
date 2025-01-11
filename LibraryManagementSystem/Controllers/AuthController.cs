@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -23,7 +24,7 @@ namespace LibraryManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
         {
-            await HttpContext.SignOutAsync("CookieAuthentication");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             ToastMessageHelper.SetToastMessage(TempData, "You have been logged out.", "Success", ToastType.Success);
 
@@ -61,7 +62,7 @@ namespace LibraryManagementSystem.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = model.RememberMe,
@@ -70,7 +71,7 @@ namespace LibraryManagementSystem.Controllers
 
             try
             {
-                await HttpContext.SignInAsync("CookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
             }
             catch
             {
