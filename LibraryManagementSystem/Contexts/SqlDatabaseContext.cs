@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Contexts
 {
-    public class SqlDatabaseContext : DbContext
+    public class SqlDatabaseContext(DbContextOptions<SqlDatabaseContext> options) : DbContext(options)
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
-        public SqlDatabaseContext(DbContextOptions<SqlDatabaseContext> options) : base(options) { }
+        public DbSet<UserSession> UserSessions { get; set; }
+
     }
 }
