@@ -24,13 +24,13 @@ namespace LibraryManagementSystem.Models
         public DateTime CreatedAt { get; set; }
 
         [Required]
-        public DateTime? ExpiresAt { get; set; }
-
-        [Required]
-        public bool IsActive { get; set; }
+        public TimeSpan ExpireTimeSpan { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+
+        [NotMapped]
+        public DateTime ExpiresAt => CreatedAt + ExpireTimeSpan;
 
     }
 }

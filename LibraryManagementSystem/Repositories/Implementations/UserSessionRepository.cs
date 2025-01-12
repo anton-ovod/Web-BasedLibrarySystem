@@ -32,7 +32,7 @@ namespace LibraryManagementSystem.Repositories.Implementations
                 await dbContext.SaveChangesAsync();
                 return existingSession;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -54,9 +54,8 @@ namespace LibraryManagementSystem.Repositories.Implementations
             {
                 return await dbContext.UserSessions.FirstOrDefaultAsync(s => s.SessionId == sessionId);
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -77,14 +76,13 @@ namespace LibraryManagementSystem.Repositories.Implementations
                         .SetProperty(s => s.IpAddress, updatedUserSession.IpAddress)
                         .SetProperty(s => s.CreatedAt, updatedUserSession.CreatedAt)
                         .SetProperty(s => s.ExpiresAt, updatedUserSession.ExpiresAt)
-                        .SetProperty(s => s.IsActive, updatedUserSession.IsActive));
+                        );
 
                 await dbContext.SaveChangesAsync();
                 return updatedUserSession;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
                 return null;
             }
         }
