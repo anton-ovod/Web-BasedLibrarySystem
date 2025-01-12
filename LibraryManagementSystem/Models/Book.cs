@@ -33,10 +33,10 @@ namespace LibraryManagementSystem.Models
         public int ReadPagesNumber { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         [Required]
-        public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime LastUpdatedAt { get; set; }
 
         [Required]
         public int UserId { get; set; }
@@ -56,6 +56,8 @@ namespace LibraryManagementSystem.Models
             PagesNumber = model.PagesNumber;
             ReadPagesNumber = model.ReadPagesNumber;
             UserId = userId;
+            CreatedAt = DateTime.UtcNow;
+            LastUpdatedAt = DateTime.UtcNow;
         }
 
         public Book(UpdateBookViewModel model, Book existingBook)
