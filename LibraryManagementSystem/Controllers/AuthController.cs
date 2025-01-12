@@ -79,7 +79,8 @@ namespace LibraryManagementSystem.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
-                IsPersistent = model.RememberMe
+                IsPersistent = model.RememberMe,
+                ExpiresUtc = model.RememberMe ? DateTime.UtcNow.AddDays(1) : null
             };
 
             try

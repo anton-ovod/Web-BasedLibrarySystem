@@ -118,7 +118,10 @@ namespace LibraryManagementSystem.Repositories.Implementations
                         .SetProperty(b => b.Genres, updatedBook.Genres)
                         .SetProperty(b => b.PagesNumber, updatedBook.PagesNumber)
                         .SetProperty(b => b.ReadPagesNumber, updatedBook.ReadPagesNumber)
-                        .SetProperty(b => b.Cover, updatedBook.Cover));
+                        .SetProperty(b => b.Cover, updatedBook.Cover)
+                        .SetProperty(b => b.CreatedAt, updatedBook.CreatedAt)
+                        .SetProperty(b => b.LastUpdatedAt, updatedBook.LastUpdatedAt)
+                        .SetProperty(b => b.UserId, updatedBook.UserId));
 
                 await dbContext.SaveChangesAsync();
                 return updatedBook;

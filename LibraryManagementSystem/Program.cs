@@ -113,7 +113,7 @@ namespace LibraryManagementSystem
                                     .GetRequiredService<IUserSessionRepository>();
 
                                 var expirationTimespan = context.Properties.IsPersistent
-                                    ? TimeSpan.FromDays(14)
+                                    ? TimeSpan.FromHours(23).Add(TimeSpan.FromMinutes(59).Add(TimeSpan.FromSeconds(59)))
                                     : TimeSpan.FromHours(3);
 
                                 var newSession = new UserSession
