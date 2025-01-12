@@ -8,15 +8,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
+using NuGet.Protocol.Core.Types;
 
 namespace LibraryManagementSystem.Controllers
 {
-    public class AuthController(IUserRepository userRepository, EmailService emailService) : Controller
+    public class AuthController(IUserRepository userRepository, IUserSessionRepository userSessionRepository, EmailService emailService) : Controller
     {
         [HttpGet]
         [AllowAnonymous]
         public IActionResult LogIn()
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Library");
+            }
             return View();
         }
 
@@ -24,8 +30,16 @@ namespace LibraryManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            }
+            catch
+            {
+                ToastMessageHelper.SetToastMessage(TempData, "An error occurred while logging out. Please try again later.", "Log Out Failed", ToastType.Error);
+                return RedirectToAction("LogIn", "Auth");
+            }
+            
             ToastMessageHelper.SetToastMessage(TempData, "You have been logged out.", "Success", ToastType.Success);
 
             return RedirectToAction("LogIn", "Auth");
@@ -65,8 +79,7 @@ namespace LibraryManagementSystem.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
-                IsPersistent = model.RememberMe,
-                ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddHours(2) : null
+                IsPersistent = model.RememberMe
             };
 
             try

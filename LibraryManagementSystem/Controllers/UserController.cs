@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LibraryManagementSystem.Controllers
 {
     [Authorize]
-    public class UserController(IUserRepository userRepository) : Controller
+    public class UserController(IUserRepository userRepository, IUserSessionRepository userSessionRepository) : Controller
     {
 
         [HttpGet]
