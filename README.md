@@ -1,152 +1,94 @@
-# Software Requirements Specification
+# Whimsy Library - Online Library  
 
-## Web-based Library System
+## Author  
+**Name:** Anton Ovod  
+**Laboratory Group:** IO 5.3  
 
-### 1. Introduction
-#### 1.1 Purpose
-The purpose of this document is to outline the software requirements 
-for a web-based Library System. 
-The system is designed to enable library members to search for and reserve books online, 
-while borrowing and returning will be handled in person. 
-Librarians will use the system to manage the library's book catalog 
-and facilitate member interactions.
-
-#### 1.2 Definitions, Acronyms, and Abbreviations
-- **WLS**: Web-based Library System
-- **Reader**: A user who can search, reserve, borrow, and prolong books, report issues with borrowed books, and request to donate books.
-- **Librarian**: A user responsible for managing library inventory, member interactions, and resolving account issues.
-
-#### 1.3 Scope
-The Library System is a web-based application designed to modernize library operations and improve user experience. 
-Its primary functionalities include:
-
-- **For Readers**: Searching for books, reserving available titles online, 
-    prolonging borrowed books a limited number of times, 
-    reporting lost or destroyed books and receiving guidance from librarians, 
-    requesting to donate books to the library, 
-    and accessing personal borrowing history. 
-    Actual borrowing and returning of books are conducted at the library.
-
-- **For Librarians**: Managing the book catalog, 
-    tracking borrowing and returning records, 
-    generating reports to streamline daily operations, 
-    approving or rejecting book donation requests, 
-    responding to reports of lost or destroyed books, 
-    and resolving member account issues.
-
-### 2. Overall Description
-
-#### 2.1 Product Perspective
-The WLS is a standalone web-based system 
-aimed at improving the efficiency of library operations. 
-It will replace traditional manual processes 
-with a more automated and interactive system. 
-
-#### 2.2 Product Features
-- **Book Search**: Readers can search for books by title, author, genre, or ISBN.
-
-- **Online Reservations**: Readers can reserve books available in the library.
-
-- **Borrowing History**: Readers can view their borrowing history.
-
-- **Prolonging Borrowed Books**: Readers can extend their borrowing period within set limits.
-
-- **Report Issues**: Readers can report lost or destroyed borrowed books and receive guidance from librarians.
-
-- **Book Donations**: Readers can request to donate books to the library.
-
-- **Catalog Managment**: Librarians can add, update and remove books from the library catalog.
-
-- **Borrowing and Returning Management**: Librarians can track records of borrowed and returned books.
-
-- **Reports**: Librarians can generate reports such as overdue books, borrowing trends, etc.
-
-#### 2.3 User Characteristics
-
-- **Readers**:  Typically familiar with browsing and searching for information online. 
-  They require minimal training and should be able to use features 
-  like book search, reservations, and reporting lost or damaged books intuitively.
-  Additionally, they may need occasional guidance from librarians 
-  for more complex interactions, such as resolving issues with borrowed books.
-
-- **Librarians**: Proficient in library management processes and basic computer operations. 
-  They will require training to manage advanced system features like generating reports, 
-  catalog updates, and responding to user-reported issues such as lost or damaged books.
-
-#### 2.4 Constraints
-- The system must comply with data protection regulations (e.g., GDPR).
-- Compatible with commonly used web browsers (e.g., Chrome, Firefox, Safari).
-- Limited to existing library infrastructure for hardware integration (e.g., barcode scanners).
-- Maximum response time for critical operations (e.g., search and reservations) should not exceed 2 seconds.
-
-#### 2.5 Assumptions and Dependencies
-- Readers and Librarians have access to a stable internet connection.
-- Hardware will be provided by the library.
-- The library database is available and operational for integration.
-
-### 3. Functional Requirements
-#### 3.1 Reader Features
-- Ability to search for books by title, author, genre, or ISBN.
-
-- Reserve a book if it is available.
-
-- View personal borrowing history.
-
-- Prolong the borrowing period for a book, subject to library policy.
-
-- Report lost or damaged books.
-
-- Submit requests to donate books to the library.
-
-#### 3.2 Librarian Features
-- Add, update, and remove books from the catalog.
-
-- Manage borrowing and returning records.
-
-- Approve or reject book reservation requests.
-
-- Respond to lost or damaged book reports.
-
-- Approve or reject book donation requests.
-
-- Generate reports on library statistics, such as overdue books and popular titles.
-
-### 4. Non-Functional Requirements
-#### 4.1 Performance
-- The system should handle up to 500 simultaneous user sessions without performance degradation.
-
-- Search results should load within 2 seconds for up to 1 million book records.
-
-#### 4.2 Usability
-- The interface must be intuitive and user-friendly for both Readers and Librarians.
-
-- Provide tooltips and help documentation for all features.
-
-#### 4.3 Security
-- Implement role-based access control (RBAC) to separate Reader and Librarian functionalities.
-
-- All sensitive data must be encrypted during storage and transmission.
-
-- Include CAPTCHA for user registration to prevent automated sign-ups.
-
-#### 4.4 Availability
-- Ensure 99.9% system uptime, excluding scheduled maintanace.
-
-- Data backups must occur daily, with the ability to restore 2 hours.
-
-### 5. System Models
-#### 5.1 Use Case Diagram
-_(To be added: A UML diagram showing interactions among members, librarians.)_
-
-#### 5.2 Data Flow Diagram
-_(To be added: A visual representation of data flows within the system.)_
-
-
-#### 6.2 Contact Information
-For queries related to this document:
-- Author: Anton Ovod
-- Email: antovod36@gmail.com
-- Institution: Lublin University of Technology
+[Czytać po polsku](./README-PL.md) | [Читати українською](./README-UA.md)
 
 ---
-This document is subject to revision as the project progresses.
+
+## Project Description  
+Whimsy Library is a modern web application designed as a personal online library.  
+It allows users to manage their book collections conveniently and intuitively.  
+The project was created with book enthusiasts in mind, who wish to have full control over their book collections in one place.  
+
+The application offers a user-friendly interface, advanced functionality, and stability, thanks to modern web technologies and best programming practices.
+
+---
+
+## Features  
+
+1. **User Registration and Login:**  
+   - Users can create an account by providing necessary data.  
+   - After registration, users can log in using their email and password.  
+
+2. **Password Reset:**  
+   - If the user forgets their password, the app provides a straightforward recovery process.  
+   - The reset mechanism sends an email with a temporary password link.  
+
+3. **Book Management:**  
+   - Users can add books to their library by providing detailed information and optionally a book cover.  
+   - The app allows editing book details for flexibility and data updates.  
+   - Books can be removed from the library if the user decides to delete them.  
+
+4. **Book Search:**  
+   - The advanced search feature allows users to find books quickly by title.  
+   - The search mechanism works in real-time, providing instant results.  
+
+5. **User Data Management:**  
+   - Every user has access to their profile, where they can view and edit personal data and their password.  
+
+6. **Responsive User Interface:**  
+   - The application is designed for both mobile and desktop devices, ensuring usability regardless of screen size.  
+
+---
+
+## Technologies Used  
+
+- **C#** - The programming language used to build the application logic.  
+- **ASP.NET Core** - Framework for building web applications.  
+- **ASP.NET Core Identity** - Authentication and authorization mechanism for users.  
+- **Entity Framework Core** - ORM for database management.  
+- **MS SQL Server** - Database storing user and book information.  
+- **Bootstrap** - CSS framework for designing responsive user interfaces.  
+- **HTML5, CSS, JS** - Frontend technologies used to build the application's interface.  
+
+---
+
+## Highlighted Visual Elements  
+
+### Welcome Page  
+![Welcome Page](./screens/WelcomePage.png)
+
+### Login Page  
+![Login Page](./screens/LoginPage.png)
+
+### Register Page  
+![Register Page](./screens/RegisterPage.png)
+
+### Password Reset Page  
+![Forgot Password Page](./screens/ForgotPasswordPage.png)
+
+### Home Page  
+![Home Page](./screens/HomePage.png)
+
+### Add Book Page  
+![Add Book Page](./screens/AddBookPage.png)
+
+### Book Details Page  
+![Book Detail Page](./screens/BookDetailsPage.png)
+
+### User Profile Page  
+![User Profile Page](./screens/UserProfilePage.png)
+
+### Delete Book Confirmation  
+![Delete Book Page](./screens/DeleteBookPage.png)
+
+### Search Book Page  
+![Search Book Page](./screens/SearchBookPage.png)
+
+---
+
+## Conclusion  
+Whimsy Library is the ideal solution for any book enthusiast who wants to better organize their literary resources. With a wide range of functionalities and a modern approach to app design, Whimsy Library combines usability with advanced technologies.  
