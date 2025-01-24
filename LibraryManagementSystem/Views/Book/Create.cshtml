@@ -22,7 +22,7 @@
                 <div class="row mb-2 ">
                     <div class="col-12 px-0">
                         <label asp-for="Title" class="form-label">Title:</label>
-                        <input asp-for="Title" class="form-control" />
+                        <input asp-for="Title" class="form-control" required />
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="row mb-2">
                     <div class="col-12 px-0">
                         <label asp-for="Author" class="form-label">Author:</label>
-                        <input asp-for="Author" class="form-control" />
+                        <input asp-for="Author" class="form-control" required />
                         <span asp-validation-for="Author" class="text-danger"></span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="row mb-2">
                     <div class="col-12 px-0">
                         <label asp-for="Description" class="form-label">Description:</label>
-                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <textarea asp-for="Description" class="form-control" rows="4" required></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="row mb-2">
                     <div class="col-12 px-0">
                         <label asp-for="Genres" class="form-label">Genres:</label>
-                        <input asp-for="Genres" class="form-control" />
+                        <input asp-for="Genres" class="form-control" required />
                         <span asp-validation-for="Genres" class="text-danger"></span>
                     </div>
                 </div>
@@ -54,12 +54,12 @@
                 <div class="row mb-2">
                     <div class="col-6 ps-0">
                         <label asp-for="PagesNumber" class="form-label">Total pages:</label>
-                        <input asp-for="PagesNumber" type="number" class="form-control" />
+                        <input asp-for="PagesNumber" type="number" min="1" class="form-control" required />
                         <span asp-validation-for="PagesNumber" class="text-danger"></span>
                     </div>
                     <div class="col-6 pe-0">
                         <label asp-for="ReadPagesNumber" class="form-label">Read pages:</label>
-                        <input asp-for="ReadPagesNumber" type="number" class="form-control" />
+                        <input asp-for="ReadPagesNumber" type="number" min="1" class="form-control" required />
                         <span asp-validation-for="ReadPagesNumber" class="text-danger"></span>
                     </div>
                 </div>

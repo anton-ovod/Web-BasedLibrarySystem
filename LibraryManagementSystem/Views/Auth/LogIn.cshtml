@@ -11,12 +11,12 @@
                 <h2 class="mb-4">WELCOME BACK</h2>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input asp-for="Email" class="form-control" id="email" placeholder="Enter your email">
+                    <input asp-for="Email" class="form-control" id="email" placeholder="Enter your email" required>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Enter your password" required>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 

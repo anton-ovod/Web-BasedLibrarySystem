@@ -14,29 +14,29 @@
 
                 <div class="row mb-lg-3">
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <input asp-for="Name" class="form-control" placeholder="Enter your name" value="@Model.Name"/>
+                        <input asp-for="Name" class="form-control" placeholder="Enter your name" value="@Model.Name" required/>
                         <span asp-validation-for="Name" class="text-danger d-block text-center w-100"></span>
                     </div>
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <input asp-for="Surname" class="form-control" placeholder="Enter your surname" value="@Model.Surname" />
+                        <input asp-for="Surname" class="form-control" placeholder="Enter your surname" value="@Model.Surname" required />
                         <span asp-validation-for="Surname" class="text-danger d-block text-center w-100"></span>
                     </div>
                 </div>
 
                 <div class="row mb-lg-3">
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <input asp-for="Email" class="form-control" placeholder="Enter your email" value="@Model.Email" />
+                        <input asp-for="Email" class="form-control" placeholder="Enter your email" value="@Model.Email" required />
                         <span asp-validation-for="Email" class="text-danger d-block text-center w-100"></span>
                     </div>
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" value="@Model.Phone" />
+                        <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" value="@Model.Phone" required />
                         <span asp-validation-for="Phone" class="text-danger d-block text-center w-100"></span>
                     </div>
                 </div>
 
                 <div class="row mb-lg-3">
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">
-                        <input asp-for="Age" class="form-control" placeholder="Enter your age" value="@Model.Age" />
+                        <input asp-for="Age" class="form-control" placeholder="Enter your age" value="@Model.Age" required />
                         <span asp-validation-for="Age" class="text-danger d-block text-center w-100"></span>
                     </div>
                     <div class="col-12 col-lg-6 mb-3 mb-lg-0">

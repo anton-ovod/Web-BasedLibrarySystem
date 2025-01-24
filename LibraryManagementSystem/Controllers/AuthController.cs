@@ -103,6 +103,8 @@ namespace LibraryManagementSystem.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Library");
             return View();
         }
 
@@ -148,6 +150,8 @@ namespace LibraryManagementSystem.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword()
         {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Library");
             return View();
         }
 
